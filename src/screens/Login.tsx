@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   Alert,
   Button,
@@ -25,6 +25,8 @@ function LoginScreen(): JSX.Element {
     },
   });
 
+  const refInput = useRef(null);
+
   const onSubmit = (data: any) => Alert.alert(JSON.stringify(data));
 
   return (
@@ -46,8 +48,15 @@ function LoginScreen(): JSX.Element {
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               placeholder="이메일"
+              autoFocus={true}
               onBlur={onBlur}
               onChangeText={onChange}
+              onSubmitEditing={() => {
+                if (refInput.current) {
+                  refInput.current?.focus();
+                }
+              }}
+              blurOnSubmit={false}
               value={value}
               style={styles.input}
             />
@@ -66,8 +75,11 @@ function LoginScreen(): JSX.Element {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              ref={refInput}
               secureTextEntry={true}
               style={styles.input}
+              blurOnSubmit={false}
+              onSubmitEditing={handleSubmit(onSubmit)}
             />
           )}
           name="password"
