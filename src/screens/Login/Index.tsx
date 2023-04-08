@@ -12,8 +12,12 @@ import {
   Platform,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
+import {RootStackParamList} from '../../../App';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-function LoginScreen(): JSX.Element {
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+
+function LoginScreen({navigation}: Props): JSX.Element {
   const {
     control,
     handleSubmit,
@@ -36,7 +40,7 @@ function LoginScreen(): JSX.Element {
       <StatusBar barStyle="default" />
       <View style={styles.imageWrap}>
         <Image
-          source={require('../../assets/images/logo/logo.png')}
+          source={require('../../../assets/images/logo/logo.png')}
           style={styles.image}
           resizeMode="contain"
         />
@@ -87,13 +91,18 @@ function LoginScreen(): JSX.Element {
           name="password"
         />
         {errors.email && <Text style={styles.errorText}>필수 항목입니다.</Text>}
-        {/* <Button
-          title="로그인"
-          onPress={handleSubmit(onSubmit)}
-          buttonStyle={styles.button}
-        /> */}
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <Text style={styles.button}>로그인</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.signUpWrap}>
+        <Text style={styles.signUpText}>계정이 없으세요?</Text>
+        <TouchableOpacity>
+          <Text
+            style={[styles.signUpText, styles.signUpButton]}
+            onPress={() => navigation.navigate('SignUp')}>
+            회원가입하기
+          </Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -128,6 +137,7 @@ const styles = StyleSheet.create({
   formWrap: {
     width: '100%',
     paddingHorizontal: 10,
+    marginBottom: 10,
   },
   button: {
     backgroundColor: '#3f99ed',
@@ -138,6 +148,18 @@ const styles = StyleSheet.create({
   },
   errorText: {
     marginBottom: 5,
+  },
+  signUpWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  signUpText: {
+    fontSize: 14,
+    letterSpacing: -0.5,
+    marginLeft: 10,
+  },
+  signUpButton: {
+    textDecorationLine: 'underline',
   },
 });
 
