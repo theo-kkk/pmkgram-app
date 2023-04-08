@@ -1,15 +1,15 @@
 import React, {useRef} from 'react';
 import {
   Alert,
-  Button,
   Image,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 
@@ -30,7 +30,9 @@ function LoginScreen(): JSX.Element {
   const onSubmit = (data: any) => Alert.alert(JSON.stringify(data));
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <StatusBar barStyle="default" />
       <View style={styles.imageWrap}>
         <Image
@@ -94,7 +96,7 @@ function LoginScreen(): JSX.Element {
           <Text style={styles.button}>로그인</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
