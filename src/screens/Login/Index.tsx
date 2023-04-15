@@ -14,6 +14,8 @@ import {
 import {useForm, Controller} from 'react-hook-form';
 import {RootStackParamList} from '../../../App';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {setData} from '../../modules/Storage';
+import RNRestart from 'react-native-restart';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -31,7 +33,17 @@ function LoginScreen({navigation}: Props): JSX.Element {
 
   const refInput = useRef(null);
 
-  const onSubmit = (data: any) => Alert.alert(JSON.stringify(data));
+  const onSubmit = (data: any) => {
+    setData('user', data);
+    Alert.alert('로그인', '로그인 완료', [
+      {
+        text: '완료',
+        onPress: () => {
+          RNRestart.restart();
+        },
+      },
+    ]);
+  };
 
   return (
     <KeyboardAvoidingView
