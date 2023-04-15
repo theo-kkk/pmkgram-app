@@ -4,9 +4,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './src/screens/Login/Index';
 import SignUpScreen from './src/screens/SignUp/Index';
 import BackHeader from './src/components/common/BackHeader';
-import {useEffect, useState} from 'react';
-import {getData} from './src/modules/Storage';
 import MainScreen from './src/screens/Main/Index';
+import useUser from './src/hooks/useUser';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -17,20 +16,11 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-  const getLogin = async () => {
-    const user = await getData('user');
-    if (user !== undefined) {
-      setIsLogin(true);
-    }
-  };
-  useEffect(() => {
-    getLogin();
-  }, []);
+  const {isLogin} = useUser();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Splash">
         {isLogin ? (
           <>
             <Stack.Screen
