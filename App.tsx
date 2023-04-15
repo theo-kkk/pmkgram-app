@@ -6,6 +6,8 @@ import SignUpScreen from './src/screens/SignUp/Index';
 import BackHeader from './src/components/common/BackHeader';
 import MainScreen from './src/screens/Main/Index';
 import useUser from './src/hooks/useUser';
+import SplashScreen from 'react-native-splash-screen';
+import {useEffect} from 'react';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -17,10 +19,13 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   const {isLogin} = useUser();
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash">
+      <Stack.Navigator>
         {isLogin ? (
           <>
             <Stack.Screen
