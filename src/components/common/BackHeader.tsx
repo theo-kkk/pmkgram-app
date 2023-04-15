@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // height: 20,
     backgroundColor: '#fff',
+    borderBottomColor: '#eee',
+    borderBottomWidth: 1,
   },
   textWrap: {
     flex: 1,

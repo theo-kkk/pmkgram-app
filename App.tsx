@@ -26,7 +26,6 @@ function App() {
           component={SignUpScreen}
           options={{
             header: props => <BackHeader {...props} />,
-            title: '회원가입',
           }}
         />
       </Stack.Navigator>

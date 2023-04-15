@@ -40,7 +40,7 @@ function LoginScreen({navigation}: Props): JSX.Element {
       <StatusBar barStyle="default" />
       <View style={styles.imageWrap}>
         <Image
-          source={require('../../../assets/images/logo/logo.png')}
+          source={require('../../../assets/images/logo/loginLogo.png')}
           style={styles.image}
           resizeMode="contain"
         />
