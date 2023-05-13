@@ -8,14 +8,23 @@ import MainScreen from './src/screens/Main/Index';
 import useUser from './src/hooks/useUser';
 import SplashScreen from 'react-native-splash-screen';
 import {useEffect} from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MyPageScreen from './src/screens/Mypage/Index';
 
 export type RootStackParamList = {
   Login: undefined;
   SignUp: undefined;
   Main: undefined;
+  TabNavigator: undefined;
+};
+
+export type RootTabParamList = {
+  Main: undefined;
+  MyPage: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function App() {
   const {isLogin} = useUser();
@@ -29,8 +38,8 @@ function App() {
         {isLogin ? (
           <>
             <Stack.Screen
-              name="Main"
-              component={MainScreen}
+              name="TabNavigator"
+              component={TabNavigater}
               options={{headerShown: false}}
             />
           </>
@@ -54,5 +63,18 @@ function App() {
     </NavigationContainer>
   );
 }
+
+const TabNavigater = () => {
+  return (
+    <BottomTab.Navigator>
+      <BottomTab.Screen
+        name="Main"
+        component={MainScreen}
+        options={{headerShown: false}}
+      />
+      <BottomTab.Screen name="MyPage" component={MyPageScreen} />
+    </BottomTab.Navigator>
+  );
+};
 
 export default App;
