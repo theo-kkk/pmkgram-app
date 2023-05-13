@@ -26,7 +26,7 @@ function BackHeader(props: NativeStackHeaderProps): JSX.Element {
           <WithLocalSvg
             width={15}
             height={15}
-            asset={require('../../../assets/images/svg/ico_head_back.svg')}
+            asset={require('../../../../assets/images/svg/ico_head_back.svg')}
           />
         </TouchableOpacity>
         {title && (

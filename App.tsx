@@ -3,13 +3,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './src/screens/Login/Index';
 import SignUpScreen from './src/screens/SignUp/Index';
-import BackHeader from './src/components/common/BackHeader';
+import BackHeader from './src/components/common/headers/BackHeader';
 import MainScreen from './src/screens/Main/Index';
 import useUser from './src/hooks/useUser';
 import SplashScreen from 'react-native-splash-screen';
 import {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MyPageScreen from './src/screens/Mypage/Index';
+import Header from './src/components/common/headers/Header';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -70,7 +71,7 @@ const TabNavigater = () => {
       <BottomTab.Screen
         name="Main"
         component={MainScreen}
-        options={{headerShown: false}}
+        options={{header: () => <Header />}}
       />
       <BottomTab.Screen name="MyPage" component={MyPageScreen} />
     </BottomTab.Navigator>
