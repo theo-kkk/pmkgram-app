@@ -66,6 +66,7 @@ function SignUpScreen({navigation}: Props): JSX.Element {
               blurOnSubmit={false}
               value={value}
               style={styles.input}
+              placeholderTextColor={'#aaa'}
             />
           )}
           name="email"
@@ -86,6 +87,7 @@ function SignUpScreen({navigation}: Props): JSX.Element {
               secureTextEntry={true}
               style={styles.input}
               blurOnSubmit={false}
+              placeholderTextColor={'#aaa'}
             />
           )}
           name="password"
@@ -106,6 +108,7 @@ function SignUpScreen({navigation}: Props): JSX.Element {
               style={styles.input}
               blurOnSubmit={false}
               onSubmitEditing={handleSubmit(onSubmit)}
+              placeholderTextColor={'#aaa'}
             />
           )}
           name="username"

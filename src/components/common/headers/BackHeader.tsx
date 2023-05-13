@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     height: 10,
   },
   wrap: {
-    height: 45,
+    height: 60,
     flexDirection: 'row',
     alignItems: 'center',
     // height: 20,
