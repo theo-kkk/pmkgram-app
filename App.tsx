@@ -31,7 +31,7 @@ function App() {
             <Stack.Screen
               name="Main"
               component={MainScreen}
-              options={{headerShown: true, title: 'Home'}}
+              options={{headerShown: false}}
             />
           </>
         ) : (
