@@ -11,6 +11,7 @@ import {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MyPageScreen from './src/screens/Mypage/Index';
 import Header from './src/components/common/headers/Header';
+import SearchScreen from './src/screens/Search/Index';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -22,6 +23,7 @@ export type RootStackParamList = {
 export type RootTabParamList = {
   Main: undefined;
   MyPage: undefined;
+  Search: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -73,6 +75,7 @@ const TabNavigater = () => {
         component={MainScreen}
         options={{header: () => <Header />}}
       />
+      <BottomTab.Screen name="Search" component={SearchScreen} options={{headerShown:false}} />
       <BottomTab.Screen name="MyPage" component={MyPageScreen} />
     </BottomTab.Navigator>
   );
