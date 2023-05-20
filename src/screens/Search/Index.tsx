@@ -1,10 +1,7 @@
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {
-  Alert,
-  Button,
   FlatList,
-  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -13,15 +10,13 @@ import {
   View,
 } from 'react-native';
 import SearchItem from '../../components/search/SearchItem';
-import {setData} from '../../modules/Storage';
-import RNRestart from 'react-native-restart';
 
 interface Search {
   name: string;
 }
 
 function SearchScreen(): JSX.Element {
-  const {control, handleSubmit, reset, watch} = useForm<Search>({
+  const {control, reset, watch} = useForm<Search>({
     defaultValues: {name: ''},
   });
   const name = watch('name');
