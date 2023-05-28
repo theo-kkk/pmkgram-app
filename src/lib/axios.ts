@@ -1,6 +1,7 @@
 import axios, {AxiosRequestConfig} from 'axios';
 import {API_URL, IOS_CLIENT_CODE, ANDROID_CLIENT_CODE} from '@env';
 import {Platform} from 'react-native';
+import {Error} from '../interface/api/index';
 
 const clientType =
   Platform.OS === 'ios' ? IOS_CLIENT_CODE : ANDROID_CLIENT_CODE;
