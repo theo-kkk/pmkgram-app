@@ -13,6 +13,7 @@ import MyPageScreen from './src/screens/Mypage/Index';
 import Header from './src/components/common/headers/Header';
 import SearchScreen from './src/screens/Search/Index';
 import CreateScreen from './src/screens/Create/Index';
+import {QueryClient, QueryClientProvider} from 'react-query';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -31,6 +32,8 @@ export type RootTabParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
+const queryClient = new QueryClient();
+
 function App() {
   const {isLogin} = useUser();
   useEffect(() => {
@@ -38,34 +41,36 @@ function App() {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {isLogin ? (
-          <>
-            <Stack.Screen
-              name="TabNavigator"
-              component={TabNavigater}
-              options={{headerShown: false}}
-            />
-          </>
-        ) : (
-          <>
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUpScreen}
-              options={{
-                header: props => <BackHeader {...props} />,
-              }}
-            />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {isLogin ? (
+            <>
+              <Stack.Screen
+                name="TabNavigator"
+                component={TabNavigater}
+                options={{headerShown: false}}
+              />
+            </>
+          ) : (
+            <>
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUpScreen}
+                options={{
+                  header: props => <BackHeader {...props} />,
+                }}
+              />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 

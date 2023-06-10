@@ -14,6 +14,7 @@ import {
 import {useForm, Controller} from 'react-hook-form';
 import {RootStackParamList} from '../../../App';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {signUp} from '../../lib/api/auth';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 
@@ -26,13 +27,31 @@ function SignUpScreen({navigation}: Props): JSX.Element {
     defaultValues: {
       email: '',
       password: '',
-      username: '',
     },
   });
 
   const refInput = useRef(null);
 
-  const onSubmit = (data: any) => Alert.alert(JSON.stringify(data));
+  const onSubmit = async (data: {email: string; password: string}) => {
+    const response = await signUp(data);
+
+    if (response.status) {
+      Alert.alert(
+        '회원가입',
+        '회원가입이 완료되었습니다. 이메일을 확인해주세요',
+        [
+          {
+            text: '확인',
+            onPress: () => {
+              navigation.navigate('Login');
+            },
+          },
+        ],
+      );
+    } else {
+      Alert.alert('회원가입', response.message, [{text: '확인'}]);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -93,7 +112,7 @@ function SignUpScreen({navigation}: Props): JSX.Element {
           name="password"
         />
         {errors.email && <Text style={styles.errorText}>필수 항목입니다.</Text>}
-        <Controller
+        {/* <Controller
           control={control}
           rules={{
             required: true,
@@ -115,7 +134,7 @@ function SignUpScreen({navigation}: Props): JSX.Element {
         />
         {errors.username && (
           <Text style={styles.errorText}>필수 항목입니다.</Text>
-        )}
+        )} */}
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <Text style={styles.button}>회원가입</Text>
         </TouchableOpacity>

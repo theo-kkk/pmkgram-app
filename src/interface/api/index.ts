@@ -4,5 +4,7 @@ export interface Error {
 
 export interface ResponseInterface<T> extends Error {
   message: string;
-  result: T;
+  data?: T;
+  status: boolean;
+  error?: any;
 }
