@@ -4,7 +4,7 @@ import {getData} from '../modules/Storage';
 function useUser() {
   const [isLogin, setIsLogin] = useState(false);
   const getLogin = async () => {
-    const user = await getData('user');
+    const user = await getData('accessToken');
     console.log('user', user);
 
     if (user !== undefined) {

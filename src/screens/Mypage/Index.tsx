@@ -5,7 +5,8 @@ import RNRestart from 'react-native-restart';
 
 function MyPageScreen(): JSX.Element {
   const deleteUser = async () => {
-    await removeData('user');
+    await removeData('accessToken');
+    await removeData('refreshToken');
     RNRestart.restart();
   };
   return (

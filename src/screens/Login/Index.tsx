@@ -16,6 +16,7 @@ import {RootStackParamList} from '../../../App';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {setData} from '../../modules/Storage';
 import RNRestart from 'react-native-restart';
+import {login} from '../../lib/api/auth';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -33,16 +34,32 @@ function LoginScreen({navigation}: Props): JSX.Element {
 
   const refInput = useRef(null);
 
-  const onSubmit = (data: any) => {
-    setData('user', data);
-    Alert.alert('로그인', '로그인 완료', [
-      {
-        text: '완료',
-        onPress: () => {
-          RNRestart.restart();
+  const onSubmit = async (data: {email: string; password: string}) => {
+    const response = await login(data);
+
+    if (
+      response.status &&
+      response.data &&
+      'access_token' in response.data &&
+      'refresh_token' in response.data
+    ) {
+      setData('accessToken', response.data.access_token);
+      setData('refreshToken', response.data.refresh_token);
+      Alert.alert('로그인', response.message, [
+        {
+          text: '확인',
+          onPress: () => {
+            RNRestart.restart();
+          },
         },
-      },
-    ]);
+      ]);
+    } else {
+      Alert.alert('로그인', response.message, [
+        {
+          text: '확인',
+        },
+      ]);
+    }
   };
 
   return (
