@@ -37,3 +37,14 @@ export const login = async ({
     return e;
   }
 };
+
+export const logout = async () => {
+  try {
+    return await client({
+      url: '/api/auth/logout',
+      method: 'GET',
+    });
+  } catch (e) {
+    return e;
+  }
+};

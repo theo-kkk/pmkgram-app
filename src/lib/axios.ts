@@ -3,6 +3,7 @@ import {API_URL, IOS_CLIENT_CODE, ANDROID_CLIENT_CODE} from '@env';
 import {Platform} from 'react-native';
 import {Error} from '../interface/api/index';
 import _ from 'lodash';
+import {getData} from '../modules/Storage';
 
 const clientType =
   Platform.OS === 'ios' ? IOS_CLIENT_CODE : ANDROID_CLIENT_CODE;
@@ -45,8 +46,12 @@ export default async function client<T extends Error>({
   }
 }
 
-instance.interceptors.request.use(request => {
-  // console.log(22222, Platform.OS, JSON.stringify(request, null, 2)); // <--- this log
+instance.interceptors.request.use(async request => {
+  const accessToken = await getData('accessToken');
+  request.headers.Authorization = accessToken
+    ? `Bearer ${accessToken}`
+    : undefined;
+  console.log(3333, Platform.OS, JSON.stringify(request, null, 2)); // <--- this log
   return request;
 });
 

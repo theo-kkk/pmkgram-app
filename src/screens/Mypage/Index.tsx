@@ -1,18 +1,14 @@
 import {Button, SafeAreaView, Text} from 'react-native';
 import React from 'react';
-import {removeData} from '../../modules/Storage';
-import RNRestart from 'react-native-restart';
+
+import useAuth from '../../hooks/useAuth';
 
 function MyPageScreen(): JSX.Element {
-  const deleteUser = async () => {
-    await removeData('accessToken');
-    await removeData('refreshToken');
-    RNRestart.restart();
-  };
+  const {logout} = useAuth();
   return (
     <SafeAreaView style={{paddingVertical: 10}}>
       <Text>마이페이지</Text>
-      <Button onPress={deleteUser} title="로그아웃" />
+      <Button onPress={logout} title="로그아웃" />
     </SafeAreaView>
   );
 }
