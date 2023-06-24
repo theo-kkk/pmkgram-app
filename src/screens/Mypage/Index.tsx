@@ -1,5 +1,5 @@
-import {Alert, Button, Platform, SafeAreaView, Text} from 'react-native';
-import React from 'react';
+import {Alert, Button, Platform, SafeAreaView, Text, Image} from 'react-native';
+import React, {useState} from 'react';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {PERMISSIONS} from 'react-native-permissions';
 
@@ -10,6 +10,8 @@ import {upload} from '../../lib/api/image';
 
 function MyPageScreen(): JSX.Element {
   const {logout} = useAuth();
+
+  const [thumbnail, setThumbnail] = useState('');
 
   const addImage = async () => {
     await permission(
@@ -39,12 +41,27 @@ function MyPageScreen(): JSX.Element {
 
     const uploadResult = await upload(formData);
 
+    if (uploadResult.status && uploadResult.data) {
+      setThumbnail(uploadResult.data.media_url);
+    }
+
     // TODO: 내정보 페이지에 들어갈 부분 처리 필요.
-    console.log(uploadResult);
   };
+
   return (
     <SafeAreaView style={{paddingVertical: 10}}>
       <Text>마이페이지</Text>
+      <>
+        <Image
+          source={
+            !thumbnail
+              ? require('../../../assets/images/svg/ico_profile_default.png')
+              : {uri: thumbnail}
+          }
+          style={{width: 400, height: 400}}
+          resizeMode="contain"
+        />
+      </>
       <Button onPress={logout} title="로그아웃" />
       <Button onPress={addImage} title="이미지 업로드" />
     </SafeAreaView>

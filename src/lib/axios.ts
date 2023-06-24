@@ -51,7 +51,7 @@ instance.interceptors.request.use(async request => {
   request.headers.Authorization = accessToken
     ? `Bearer ${accessToken}`
     : undefined;
-  console.log(3333, Platform.OS, JSON.stringify(request, null, 2)); // <--- this log
+  // console.log(3333, Platform.OS, JSON.stringify(request, null, 2)); // <--- this log
   return request;
 });
 
