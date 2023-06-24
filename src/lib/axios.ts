@@ -58,6 +58,7 @@ instance.interceptors.request.use(async request => {
 instance.interceptors.response.use(
   (response): Promise<any> => {
     const {result, message} = response.data;
+
     const resultState = {
       data: result,
       message: message,
